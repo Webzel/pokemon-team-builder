@@ -1,16 +1,19 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PokemonCard from '../components/PokemonCard.astro';
+import { fetchAllPokemon } from '../lib/pokeapi';
+import type { PokemonData } from '../types/pokemon';
 
+const pokemonList: PokemonData[] = await fetchAllPokemon(12);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Pokémon Team Builder" description="Build your ideal Pokémon team">
+	<h1>Pokémon Team Builder (v0)</h1>
+    <div class="container">
+      <div class="pokemon-grid">
+        {pokemonList.map(p => (
+          <PokemonCard id={p.id} name={p.name} sprite={p.sprite} stats={p.stats} types={p.types} />
+        ))}
+      </div>
+    </div>
+</BaseLayout>
