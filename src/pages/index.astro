@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PokemonCard from '../components/PokemonCard.astro';
+import Modal from '../components/Modal.astro';
 import { fetchAllPokemon } from '../lib/pokeapi';
 import type { PokemonData } from '../types/pokemon';
 
@@ -8,12 +9,123 @@ const pokemonList: PokemonData[] = await fetchAllPokemon(12);
 ---
 
 <BaseLayout title="Pokémon Team Builder" description="Build your ideal Pokémon team">
-	<h1>Pokémon Team Builder (v0)</h1>
-    <div class="container">
-      <div class="pokemon-grid">
-        {pokemonList.map(p => (
-          <PokemonCard id={p.id} name={p.name} sprite={p.sprite} stats={p.stats} types={p.types} />
-        ))}
-      </div>
-    </div>
+  <div class="main-content">
+    <aside class="team-builder">
+      <h2>Your Team</h2>
+      <p>Select Pokémon to build your team.</p>
+      <ul id="team-list" class="team-list">
+        <li class="empty-slot">Slot 1</li>
+        <li class="empty-slot">Slot 2</li>
+        <li class="empty-slot">Slot 3</li>
+        <li class="empty-slot">Slot 4</li>
+        <li class="empty-slot">Slot 5</li>
+        <li class="empty-slot">Slot 6</li>
+      </ul>
+    </aside>
+
+    <section class="pokemon-grid">
+      {pokemonList.map(p => (
+        <>
+          <PokemonCard
+            id={p.id}
+            name={p.name}
+            sprite={p.sprite}
+            stats={p.stats}
+            types={p.types}
+          />
+          <Modal id={`modal-${p.id}`}>
+            <h2 class="stats-title">{p.name} Stats</h2>
+            <ul class="stats-list">
+              {p.stats.map(stat => {
+                const name = stat.name.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                const fill = Math.min(stat.base, 100); // optional max for visual consistency
+                return (
+                  <li>
+                    <strong class="stat-label">{name}:</strong> <span class="stat-amount">{stat.base}</span>
+                    <div class="stat-bar">
+                      <div
+                        class="stat-bar-fill"
+                        data-stat={stat.name}
+                        style={`--fill: ${fill}%`}
+                      ></div>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+          <div>
+                <h3 class="type-effect">Weaknesses</h3>
+                <div class="type-list">
+                  {p.effectiveness.double_damage_from.map(type => (
+                    <span class={"type-badge " + type}>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 class="type-effect">Resistances</h3>
+                <div class="type-list">
+                  {p.effectiveness.half_damage_from.map(type => (
+                    <span class={"type-badge " + type}>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 class="type-effect">Immunities</h3>
+                <div class="type-list">
+                  {p.effectiveness.no_damage_from.map(type => (
+                    <span class={"type-badge " + type}>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                  ))}
+                </div>
+              </div>
+          </Modal>
+        </>
+      ))}
+    </section>
+  </div>
+
+  <!-- Load modal JavaScript -->
+  <script src="scripts/modal.js" defer></script>
+  <script src="scripts/team.js" defer></script>
+</BaseLayout>
+
+
+
+  <style>
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
 </BaseLayout>

@@ -1,0 +1,67 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+	<div class="group">
+		<p>&copy; {currentYear} Pokemon Team Builder</p>
+	</div>
+	<p class="socials">
+		<a href="https://github.com/me"> GitHub</a>
+		<a href="https://codepen.io/me"> Webzel</a>
+        <a href="https://twitter.com/me"> LinkedIn</a>
+	</p>
+</footer>
+
+<style>
+    footer {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        margin-top: auto;
+        padding: 3rem 2rem 3rem;
+        text-align: center;
+        color: #faf9f6;
+    }
+
+    	.group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.socials {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+    footer a {
+        color: #faf9f6;
+        text-underline-offset: 0.25em;
+    }
+
+    footer a:hover,
+	footer a:focus {
+		color: #c49f3b;
+	}
+
+	@media (min-width: 50em) {
+		footer {
+			flex-direction: row;
+			justify-content: space-between;
+			padding: 2.5rem 5rem;
+		}
+
+		.group {
+			flex-direction: row;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.socials {
+			justify-content: flex-end;
+		}
+	}
+</style>
