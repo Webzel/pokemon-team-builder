@@ -12,13 +12,13 @@ This tool allows users to browse Pokémon, view detailed stats and type matchups
 
 ##### Features
 
-- ⚡ **Astro**-powered static generation for speed and simplicity
-- 🧠 **TypeScript** for type safety and scalable architecture
-- 🖼 High-quality **official Pokémon artwork**
-- 📊 Dynamic **modals with full stats, weaknesses, resistances, and immunities**
-- 🧪 **Type-based color system** for cards and badges
-- 📦 **LocalStorage-based team builder** — add Pokémon to a team and persist it across sessions
-- 📱 Fully **responsive layout**
+- **Astro**-powered static generation for speed and simplicity
+- **TypeScript** for type safety and scalable architecture
+- High-quality **official Pokémon artwork**
+- Dynamic **modals with full stats, weaknesses, resistances, and immunities**
+- **Type-based color system** for cards and badges
+- **LocalStorage-based team builder** — add Pokémon to a team and persist it across sessions
+- Fully **responsive layout**
 
 ---
 
@@ -45,13 +45,13 @@ src/
 
 ##### Roadmap
 
-✅ Add to Team functionality with LocalStorage  
-✅ Modal with stats, weaknesses, resistances, immunities  
-✅ Type-colored badges system  
-🚧 Region filtering and type-based search  
-🚧 Dark mode toggle  
-🚧 Export/share team feature  
-🚧 Mobile experience polish
+Add to Team functionality with LocalStorage  
+Modal with stats, weaknesses, resistances, immunities  
+Type-colored badges system  
+Region filtering and type-based search  
+Dark mode toggle  
+Export/share team feature  
+Mobile experience polish
 
 ---
 
